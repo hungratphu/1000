@@ -47,17 +47,41 @@ PATH_SCRIPT     = os.path.dirname(__file__)
 # ╠╣ ║ ║║║║║   ║ ║║ ║║║║╚═╗
 # ╚  ╚═╝╝╚╝╚═╝ ╩ ╩╚═╝╝╚╝╚═╝ FUNCTIONS
 # ---------------------------------------------------------
+def GetInfo_Grid(grid):
+    message = "Grid : "
 
+    # Show IsCurved property
+    message += "\nIf grid is Arc : " + str(grid.IsCurved)
 
-# ╔═╗╦  ╔═╗╔═╗╔═╗╔═╗╔═╗
-# ║  ║  ╠═╣╚═╗╚═╗║╣ ╚═╗
-# ╚═╝╩═╝╩ ╩╚═╝╚═╝╚═╝╚═╝ CLASSES
-# ---------------------------------------------------------
+    # Show Curve information
+    curve = grid.Curve
+    if grid.IsCurved:
+        # if the curve is an arc, give center and radius information
+        arc = curve.AsCurve()
+        message += "\nArc's radius: " + str(arc.Radius)
+        message += "\nArc's center:  (" + XYZString(arc.Center)
+    else:
+        # if the curve is a line, give length information
+        line = curve.AsCurve()
+        message += "\nLine's Length: " + str(line.Length)
+    # Get curve start point
+    message += "\nStart point: " + XYZString(curve.GetEndPoint(0))
+    # Get curve end point
+    message += "; End point: " + XYZString(curve.GetEndPoint(1))
+
+    TaskDialog.Show("Revit", message)
+
+# output the point's three coordinates
+def XYZString(point):
+    return "(" + str(point.X) + ", " + str(point.Y) + ", " + str(point.Z) + ")"
+
 
 # ╔╦╗  ╔═╗  ╦  ╔╗╔
 # ║║║  ╠═╣  ║  ║║║
 # ╩ ╩  ╩ ╩  ╩  ╝╚╝  MAIN
 # ---------------------------------------------------------
+grids_in_view = FilteredElementCollector(doc, active_view).OfCategory(BuiltInCategory.OST_Grids).WhereElementIsNotElementType().ToElements()
+
 
 
 
@@ -66,10 +90,10 @@ PATH_SCRIPT     = os.path.dirname(__file__)
 #  ║ ╠╦╝╠═╣║║║╚═╗╠═╣║   ║ ║║ ║║║║
 #  ╩ ╩╚═╩ ╩╝╚╝╚═╝╩ ╩╚═╝ ╩ ╩╚═╝╝╚╝ TRANSACTION
 # ---------------------------------------------------------
-t = Transaction(doc, 'Change Name')
-t.Start()
-
-t.Commit()
+# t = Transaction(doc, 'Change Name')
+# t.Start()
+#
+# t.Commit()
 
 # ---------------------------------------------------------
 print('-'*50)
