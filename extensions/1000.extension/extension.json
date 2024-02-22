@@ -1,0 +1,18 @@
+{
+    "builtin": "False",
+    "default_enabled": "True",
+    "type": "extension",
+    "rocket_mode_compatible": "False",
+    "name": "1000",
+    "description": "Python Scripts for Autodesk Revit",
+    "author": "Hung Nguyen",
+    "author_profile": "",
+    "url": "https://github.com/hungratphu/HN-RevitAPI-Tool-024.git",
+    "website": "",
+    "image": "",
+    "templates": {
+        "author": "",
+        "docpath": ""
+    },
+    "dependencies": []
+}
