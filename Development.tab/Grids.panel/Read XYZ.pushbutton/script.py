@@ -80,7 +80,11 @@ def XYZString(point):
 # ║║║  ╠═╣  ║  ║║║
 # ╩ ╩  ╩ ╩  ╩  ╝╚╝  MAIN
 # ---------------------------------------------------------
-grids_in_view = FilteredElementCollector(doc, active_view).OfCategory(BuiltInCategory.OST_Grids).WhereElementIsNotElementType().ToElements()
+grids_in_view = (FilteredElementCollector(doc, active_view.Id).OfCategory(BuiltInCategory.OST_Grids).
+                 WhereElementIsNotElementType().FirstElement())
+
+GetInfo_Grid(grids_in_view)
+
 
 
 
