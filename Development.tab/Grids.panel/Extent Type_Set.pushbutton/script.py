@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """Declare coding style"""
 
-__title__ = ''
+__title__ = 'Set Extent Type'
 __doc__ = """
 Date    = 2023.Dec.03
 ---------------------------------------------------------
@@ -72,18 +72,23 @@ all_grids = (FilteredElementCollector(doc, active_view.Id).OfCategory(BuiltInCat
 t = Transaction(doc, 'Change Name')
 t.Start()
 
+# UnCrop Active View
+
+
+# Change Datum Extent Type
 for grid in all_grids:
     grid = grid  # type: Grid
 
-    # Get 3D Extent Type
-    datum_extend_type_end_0 = grid.GetDatumExtentTypeInView(DatumEnds.End0, active_view)
-    datum_extend_type_end_1 = grid.GetDatumExtentTypeInView(DatumEnds.End1, active_view)
-
-    # Set 3D Extent Type
+    # Set to 3D Extent Type
     grid.SetDatumExtentType(DatumEnds.End0, active_view, DatumExtentType.Model)
     grid.SetDatumExtentType(DatumEnds.End1, active_view, DatumExtentType.Model)
 
+    # TEST
     # grid.SetCurveInView(DatumExtentType.Model, active_view, get_curves_in_view[0])
+
+    # Set to 2D Extent Right after
+    grid.SetDatumExtentType(DatumEnds.End0, active_view, DatumExtentType.ViewSpecific)
+    grid.SetDatumExtentType(DatumEnds.End1, active_view, DatumExtentType.ViewSpecific)
 
 t.Commit()
 
