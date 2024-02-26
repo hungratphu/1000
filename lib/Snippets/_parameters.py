@@ -5,8 +5,8 @@
 # ║║║║╠═╝║ ║╠╦╝ ║ ╚═╗
 # ╩╩ ╩╩  ╚═╝╩╚═ ╩ ╚═╝ IMPORTS
 # ---------------------------------------------------------
-from Autodesk.Revit.DB import Document, StorageType, Definition, Definitions, DefinitionGroup, DefinitionFile
-from Autodesk.Revit.UI import UIDocument
+from Autodesk.Revit.DB import *
+from Autodesk.Revit.UI import *
 from Autodesk.Revit.ApplicationServices import Application
 
 import os.path

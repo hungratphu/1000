@@ -72,7 +72,7 @@ for grid in all_grids:
     datum_extend_type_end_0 = grid.GetDatumExtentTypeInView(DatumEnds.End0, active_view)
     datum_extend_type_end_1 = grid.GetDatumExtentTypeInView(DatumEnds.End1, active_view)
 
-    print(grid.Name, ":", datum_extend_type_end_0, datum_extend_type_end_1)
+    print("GRID: ", grid.Name, ":", datum_extend_type_end_0, "|", datum_extend_type_end_1)
 
 t.Commit()
 

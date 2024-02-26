@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """Declare coding style"""
 
-__title__ = 'Set Extent Type'
+__title__ = 'Set Extent 2D/3D'
 __doc__ = """
 Date    = 2023.Dec.03
 ---------------------------------------------------------
@@ -13,18 +13,15 @@ Author: Hung Nguyen """
 # ║║║║╠═╝║ ║╠╦╝ ║ ╚═╗
 # ╩╩ ╩╩  ╚═╝╩╚═ ╩ ╚═╝ IMPORTS
 # ---------------------------------------------------------
-import os, sys, datetime, time
+import os
 from Autodesk.Revit.DB import *
 from Autodesk.Revit.UI import *
 from Autodesk.Revit.UI.Selection import *
-from Autodesk.Revit.DB.Architecture import *
 
 # pyRevit Imports
-from pyrevit import forms, revit, script
 
 # .NET Imports
 import clr
-
 clr.AddReference('System')
 from System.Collections.Generic import List
 
@@ -34,6 +31,7 @@ from System.Collections.Generic import List
 # ╚╗╔╝╠═╣╠╦╝║╠═╣╠╩╗║  ║╣ ╚═╗
 #  ╚╝ ╩ ╩╩╚═╩╩ ╩╚═╝╩═╝╚═╝╚═╝ VARIABLES
 # ---------------------------------------------------------
+
 doc = __revit__.ActiveUIDocument.Document  # type: Document
 uidoc = __revit__.ActiveUIDocument  # type: UIDocument
 app = __revit__.Application  # Application class
@@ -44,26 +42,6 @@ active_level = active_view.GenLevel
 rvt_year = int(app.VersionNumber)
 PATH_SCRIPT = os.path.dirname(__file__)
 
-# ╔═╗╦ ╦╔╗╔╔═╗╔╦╗╦╔═╗╔╗╔╔═╗
-# ╠╣ ║ ║║║║║   ║ ║║ ║║║║╚═╗
-# ╚  ╚═╝╝╚╝╚═╝ ╩ ╩╚═╝╝╚╝╚═╝ FUNCTIONS
-# ---------------------------------------------------------
-
-
-# ╔╦╗  ╔═╗  ╦  ╔╗╔
-# ║║║  ╠═╣  ║  ║║║
-# ╩ ╩  ╩ ╩  ╩  ╝╚╝  MAIN
-# ---------------------------------------------------------
-# Filter all grids in view:
-all_grids = (FilteredElementCollector(doc, active_view.Id).OfCategory(BuiltInCategory.OST_Grids).
-             WhereElementIsNotElementType().ToElements())
-
-# get_curves_in_view = datum.GetCurvesInView(DatumExtentType.Model, active_view)
-# line = get_curves_in_view[0]
-# print(line)
-# print(type(line))
-# print('-'*50)
-
 
 # ╔╦╗╦═╗╔═╗╔╗╔╔═╗╔═╗╔═╗╔╦╗╦╔═╗╔╗╔
 #  ║ ╠╦╝╠═╣║║║╚═╗╠═╣║   ║ ║║ ║║║║
@@ -72,7 +50,8 @@ all_grids = (FilteredElementCollector(doc, active_view.Id).OfCategory(BuiltInCat
 t = Transaction(doc, 'Change Name')
 t.Start()
 
-# UnCrop Active View
+all_grids = (FilteredElementCollector(doc, active_view.Id).OfCategory(BuiltInCategory.OST_Grids).
+             WhereElementIsNotElementType().ToElements())
 
 
 # Change Datum Extent Type
@@ -83,10 +62,8 @@ for grid in all_grids:
     grid.SetDatumExtentType(DatumEnds.End0, active_view, DatumExtentType.Model)
     grid.SetDatumExtentType(DatumEnds.End1, active_view, DatumExtentType.Model)
 
-    # TEST
-    # grid.SetCurveInView(DatumExtentType.Model, active_view, get_curves_in_view[0])
 
-    # Set to 2D Extent Right after
+    # Set to 2D Extent right after to the 3D extent of grid
     grid.SetDatumExtentType(DatumEnds.End0, active_view, DatumExtentType.ViewSpecific)
     grid.SetDatumExtentType(DatumEnds.End1, active_view, DatumExtentType.ViewSpecific)
 
