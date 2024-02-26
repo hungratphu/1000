@@ -124,7 +124,7 @@ def straighten_grid_leaders(grid, view):
 
         is_valid_0 = grid.IsLeaderValid(DatumEnds.End0, view, leader_0)
         is_bubble_visibility_0 = grid.IsBubbleVisibleInView(DatumEnds.End0, view)
-        print(is_valid_0)
+
         if is_valid_0 and is_bubble_visibility_0:
             grid.SetLeader(DatumEnds.End0, view, leader_0)
 
@@ -135,7 +135,7 @@ def straighten_grid_leaders(grid, view):
 
         is_valid_1 = grid.IsLeaderValid(DatumEnds.End1, view, leader_1)
         is_bubble_visibility_1 = grid.IsBubbleVisibleInView(DatumEnds.End1, view)
-        print(is_valid_1)
+
         if is_valid_1 and is_bubble_visibility_1:
             grid.SetLeader(DatumEnds.End1, view, leader_1)
 
@@ -144,6 +144,7 @@ def straighten_grid_leaders(grid, view):
 # ---------------------------------------------------------
 
 def straight_grid_leader_0(grid, view, leader_0):
+    # Next task: Combine this with straight_grid_leader() function
     if leader_0:
         leader_0.Elbow = XYZ(leader_0.Anchor.X,
                              leader_0.Anchor.Y,
@@ -151,13 +152,16 @@ def straight_grid_leader_0(grid, view, leader_0):
 
         is_valid_0 = grid.IsLeaderValid(DatumEnds.End0, view, leader_0)
         is_bubble_visibility_0 = grid.IsBubbleVisibleInView(DatumEnds.End0, view)
-        print("Leader 0: {} to set leader straight @ grid {}".format(is_valid_0, grid.Name))
+
         if is_valid_0 and is_bubble_visibility_0:
             grid.SetLeader(DatumEnds.End0, view, leader_0)
+        else:
+            print("Leader 0: Fail to set leader straight @ grid {}".format(grid.Name))
 
 # ---------------------------------------------------------
 
 def straight_grid_leader_1(grid, view, leader_1):
+    # Next task: Combine this with straight_grid_leader() function
     if leader_1:
         leader_1.Elbow = XYZ(leader_1.Anchor.X,
                              leader_1.Anchor.Y,
@@ -165,9 +169,11 @@ def straight_grid_leader_1(grid, view, leader_1):
 
         is_valid_1 = grid.IsLeaderValid(DatumEnds.End1, view, leader_1)
         is_bubble_visibility_1 = grid.IsBubbleVisibleInView(DatumEnds.End1, view)
-        print( print("Leader 1: {} to set leader straight @ grid {}".format(is_valid_1, grid.Name)))
+
         if is_valid_1 and is_bubble_visibility_1:
             grid.SetLeader(DatumEnds.End1, view, leader_1)
+        else:
+            print("Leader 1: Fail to set leader straight @ grid {}".format(grid.Name))
 
 # ---------------------------------------------------------
 
@@ -195,9 +201,8 @@ def set_leaders(grid, view, leader_0, leader_1):
 
         if is_valid_0 and is_grid_bubble_visible_0:
             grid.SetLeader(DatumEnds.End0, view, leader_0)
-            print("Leader 0: set leader @ grid {}".format(grid.Name))
         else:
-            print("Leader 0: set leader is not valid @ grid {}".format(grid.Name))
+            print("Leader 0: Fail to set leader @ grid {}".format(grid.Name))
 
     if leader_1:
         is_valid_1 = grid.IsLeaderValid(DatumEnds.End1, view, leader_1)
@@ -205,9 +210,8 @@ def set_leaders(grid, view, leader_0, leader_1):
 
         if is_valid_1 and is_grid_bubble_visible_1:
             grid.SetLeader(DatumEnds.End1, view, leader_1)
-            print("Leader 1: set leader @ grid {}".format(grid.Name))
         else:
-            print("Leader 1: set leader is not valid @ grid {}".format(grid.Name))
+            print("Leader 1: Fail to set leader @ grid {}".format(grid.Name))
 
 # ---------------------------------------------------------
 
