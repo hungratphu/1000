@@ -179,10 +179,11 @@ def match_leaders_xyz(from_leader, new_leader):
         from_end   = from_leader.End
         from_elbow = from_leader.Elbow
 
-        new_leader.End    = XYZ(from_end.X, from_end.Y, new_leader.End.Z)
-        new_leader.Elbow  = XYZ(from_elbow.X, from_elbow.Y, new_leader.Elbow.Z)
+        new_leader.End = XYZ(from_end.X, from_end.Y, new_leader.End.Z)
+        new_leader.Elbow = XYZ(from_elbow.X, from_elbow.Y, new_leader.Elbow.Z)
 
         return new_leader
+
 
 # ---------------------------------------------------------
 
@@ -196,7 +197,7 @@ def set_leaders(grid, view, leader_0, leader_1):
             grid.SetLeader(DatumEnds.End0, view, leader_0)
             print("Leader 0: set leader @ grid {}".format(grid.Name))
         else:
-            print("Leader 0: cannot set leader @ grid {}".format(grid.Name))
+            print("Leader 0: set leader is not valid @ grid {}".format(grid.Name))
 
     if leader_1:
         is_valid_1 = grid.IsLeaderValid(DatumEnds.End1, view, leader_1)
@@ -206,7 +207,7 @@ def set_leaders(grid, view, leader_0, leader_1):
             grid.SetLeader(DatumEnds.End1, view, leader_1)
             print("Leader 1: set leader @ grid {}".format(grid.Name))
         else:
-            print("Leader 1: cannot set leader @ grid {}".format(grid.Name))
+            print("Leader 1: set leader is not valid @ grid {}".format(grid.Name))
 
 # ---------------------------------------------------------
 

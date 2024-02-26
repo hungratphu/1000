@@ -80,6 +80,7 @@ for grid in all_grids:
 
     new_leader_0 = match_leaders_xyz(from_leader_0, to_leader_0)
     new_leader_1 = match_leaders_xyz(from_leader_1, to_leader_1)
+
     t3.Commit()
     # -----------------------------------------
 
