@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-"""Declare coding style"""
-
 __title__ = ''
 __doc__ = """
 Date    = 2023.Dec.03
@@ -33,10 +31,11 @@ from System.Collections.Generic import List
 # ╚╗╔╝╠═╣╠╦╝║╠═╣╠╩╗║  ║╣ ╚═╗
 #  ╚╝ ╩ ╩╩╚═╩╩ ╩╚═╝╩═╝╚═╝╚═╝ VARIABLES
 # ---------------------------------------------------------
-doc             = __revit__.ActiveUIDocument.Document   #type: Document
-uidoc           = __revit__.ActiveUIDocument            #type: UIDocument
-app             = __revit__.Application                 # Application class
-selection       = uidoc.Selection                       #type: Selection
+
+doc             = __revit__.ActiveUIDocument.Document   # type: Document
+uidoc           = __revit__.ActiveUIDocument            # type: UIDocument
+app             = __revit__.Application                 # type: UIApplication.Application
+selection       = uidoc.Selection                       # type: Selection
 
 active_view     = doc.ActiveView
 active_level    = active_view.GenLevel

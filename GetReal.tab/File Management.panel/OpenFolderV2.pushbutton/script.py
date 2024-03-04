@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-"""Declare coding style"""
-
 __title__ = 'Open Folder Central'
 __doc__ = """
 Date    = 2023.Dec.25

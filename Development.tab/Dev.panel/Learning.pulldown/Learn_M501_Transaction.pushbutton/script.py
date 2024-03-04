@@ -1,0 +1,98 @@
+# -*- coding: utf-8 -*-
+__title__ = ''
+__doc__ = """
+Date    = 2023.Dec.03
+---------------------------------------------------------
+Description:
+---------------------------------------------------------
+Author: Hung Nguyen """
+
+# ╦╔╦╗╔═╗╔═╗╦═╗╔╦╗╔═╗
+# ║║║║╠═╝║ ║╠╦╝ ║ ╚═╗
+# ╩╩ ╩╩  ╚═╝╩╚═ ╩ ╚═╝ IMPORTS
+# ---------------------------------------------------------
+import os, sys, datetime, time
+from Autodesk.Revit.DB import *
+from Autodesk.Revit.UI import *
+from Autodesk.Revit.UI. Selection import *
+from Autodesk.Revit.DB.Architecture import *
+
+# pyRevit Imports
+from pyrevit import forms, revit, script
+
+# .NET Imports
+import clr
+clr.AddReference('System')
+from System.Collections.Generic import List
+
+# Custom Imports
+from Snippets._parameters import get_parameter_actual_value
+
+# ╦  ╦╔═╗╦═╗╦╔═╗╔╗ ╦  ╔═╗╔═╗
+# ╚╗╔╝╠═╣╠╦╝║╠═╣╠╩╗║  ║╣ ╚═╗
+#  ╚╝ ╩ ╩╩╚═╩╩ ╩╚═╝╩═╝╚═╝╚═╝ VARIABLES
+# ---------------------------------------------------------
+doc             = __revit__.ActiveUIDocument.Document   #type: Document
+uidoc           = __revit__.ActiveUIDocument            #type: UIDocument
+app             = __revit__.Application                 # Application class
+selection       = uidoc.Selection                       #type: Selection
+
+active_view     = doc.ActiveView
+active_level    = active_view.GenLevel
+rvt_year        = int(app.VersionNumber)
+PATH_SCRIPT     = os.path.dirname(__file__)
+
+# ╔╦╗  ╔═╗  ╦  ╔╗╔
+# ║║║  ╠═╣  ║  ║║║
+# ╩ ╩  ╩ ╩  ╩  ╝╚╝  MAIN
+# ---------------------------------------------------------
+
+
+
+# ╔╦╗╦═╗╔═╗╔╗╔╔═╗╔═╗╔═╗╔╦╗╦╔═╗╔╗╔
+#  ║ ╠╦╝╠═╣║║║╚═╗╠═╣║   ║ ║║ ║║║║
+#  ╩ ╩╚═╩ ╩╝╚╝╚═╝╩ ╩╚═╝ ╩ ╩╚═╝╝╚╝ TRANSACTION
+# ---------------------------------------------------------
+
+import contextlib, traceback
+
+@contextlib.contextmanager
+def transaction(doc, title, debug=False):
+    """Context Manager that will initiate Transaction .Start() and .Commit() methods.
+    In case of an error - it will .RollBack() transaction and display error message if debug = True
+    @param doc:     Document where Transaction should be created
+    @param title:   Name of Transaction
+    @param debug:   True - Display error messages / False - No error messages
+    """
+
+    t = Transaction(doc, title)
+    t.Start()
+    try:
+        yield
+        t.Commit()
+    except:
+        t.RollBack()
+        if debug:
+            print(traceback.format_exc())
+
+# ---------------------------------------------------------
+
+@ contextlib.contextmanager
+def try_except(debug=False):
+    try:
+        yield
+    except:
+        if debug:
+            print(traceback.format_exc())
+# ---------------------------------------------------------
+
+
+# ╦═╗╔═╗╔═╗╔╦╗  ╔╦╗╔═╗╦═╗╔═╗
+# ╠╦╝║╣ ╠═╣ ║║  ║║║║ ║╠╦╝║╣
+# ╩╚═╚═╝╩ ╩═╩╝  ╩ ╩╚═╝╩╚═╚═╝ READ MORE
+# ---------------------------------------------------------
+
+# CONTEXT MANAGER:
+# https://book.pythontips.com/en/latest/generators.html
+# https://book.pythontips.com/en/latest/context_managers.html
+# https://docs.python.org/2/reference/datamodel.html#with-statement-context-managers

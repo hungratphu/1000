@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-
-
 __title__ = ''  # Name of the button displayed in Revit UI
 __doc__ = """
 Date    = 2023.Nov.11
